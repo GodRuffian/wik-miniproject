@@ -1,0 +1,13 @@
+<!--component-index-card.wxml-->
+<view class="component-index-card">
+    <view class="card-content">
+        <text class="card-question-title">{{ question.title }}</text>
+        <view class="card-user">
+            <image class="card-user-headurl" mode="{{imageMode}}" src="{{question.headurl}}"></image>
+            <text class="card-user-username">{{ question.username }}</text>
+        </view>
+    </view>
+    <view class="card-cover-box">
+        <image class="card-cover" src="{{question.cover}}"></image>
+    </view>
+</view>

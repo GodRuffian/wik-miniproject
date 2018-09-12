@@ -1,0 +1,47 @@
+/**component-index-card.wxss**/
+
+.component-index-card {
+    height: 152rpx;
+    border-bottom: 1px solid #eee;
+    overflow: hidden;
+    padding: 30rpx 0rpx;
+}
+.card-content {
+    display: inline-block;
+    /**position: relative;**/
+    width: 444rpx;
+    height: 152rpx;
+    margin-right: 20rpx;
+    position: relative;
+    /**top: -40rpx;**/
+}
+.card-question-title {
+    display: inline-block;
+    width: 444rpx;
+    height: 96rpx;
+    font-size: 34rpx;
+    margin-bottom: 30rpx;
+
+}
+.card-user {
+   height: 26rpx;
+}
+.card-user-headurl {
+    display: inline-block;
+    margin-right: 4rpx;
+    width: 26rpx;
+    height: 26rpx;
+    border-radius: 26rpx;
+}
+.card-user-username {
+    font-size: 26rpx;
+    line-height: 10rpx;
+}
+.card-cover-box {
+    display: inline-block;
+}
+.card-cover {
+    width: 226rpx;
+    height: 152rpx;
+    border-radius: 10rpx;
+}

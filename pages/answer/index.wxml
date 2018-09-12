@@ -1,0 +1,7 @@
+<!--index.wxml-->
+<view class="answer">
+  <view class="userinfo">
+    <text>回答页</text>
+    <button bindtap="toQuestion">跳转到问题页</button>
+  </view>
+</view>

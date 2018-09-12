@@ -1,0 +1,28 @@
+<view>
+    <view class="search-view">
+        <view class="search">
+            <input type="text" placeholder="搜索你感兴趣的"/>
+            <!--<navigator url="/pages/index/index">取消</navigator>-->
+            <view class="search-cancle" bindtap="_searchCancle">
+                <text>取消</text>
+            </view>
+        </view>
+    </view>
+    <view class="container">
+        <view class="search-history">
+            <view class="search-his-title">
+                <text class="search-his-t1">搜索历史</text>
+                <text class="search-his-t2">清空搜索历史</text>
+            </view>
+            <view class="search-his-data" wx:for="{{historySearch}}">
+                <icon class="search-his-wait"><image style="width:32rpx;height:32rpx"src="/assets/images/icon_history.png"></image></icon>
+                <text class="search-his-keyword">{{item.keyword}}</text>
+                <icon class="search-his-del" style="width:44rpx;height:44rpx;"><image style="width:32rpx;height:32rpx"src="/assets/images/icon_delete@2x.png"></image></icon>
+            </view>
+        </view>
+
+        <view class="search-result">
+
+        </view>
+    </view>
+</view>

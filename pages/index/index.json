@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "indexCard": "/components/card/indexCard",
+    "search": "/components/search/index"
+  }
+
+}
