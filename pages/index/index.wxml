@@ -3,17 +3,5 @@
     bindscrolltoupper="_flushData" bindscrolltolower="_flushData" class="container">
 
     <search bindtap="_toSearch"></search>
-
-  <indexCard wx:for="{{questions}}" wx:for-item="question" wx:key="question.id" question="{{question}}"></indexCard>
-  <view class="userinfo">
-    <button bindtap="toAnswer">跳转到回答页</button>
-    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
-    <block wx:else>
-      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
-      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-    </block>
-  </view>
-  <view class="usermotto">
-    <text class="user-motto">{{motto}}</text>
-  </view>
+    <indexCard wx:for="{{lists}}" wx:key="item.id" item="{{item}}"></indexCard>
 </scroll-view>

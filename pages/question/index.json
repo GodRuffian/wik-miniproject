@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "问题详情页",
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "hasAnswer": "/components/question/hasAnswer/index",
+    "noAnswer": "/components/question/noAnswer/index",
+    "user": "/components/user/index"
+  }
+}

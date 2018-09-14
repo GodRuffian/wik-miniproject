@@ -1,13 +1,11 @@
 <!--component-index-card.wxml-->
-<view class="component-index-card">
+<view class="component-index-card" id="{{item.id}}" bindtap="_handleTap">
     <view class="card-content">
-        <text class="card-question-title">{{ question.title }}</text>
+        <view class="card-question-title">{{ item.title }}</view>
         <view class="card-user">
-            <image class="card-user-headurl" mode="{{imageMode}}" src="{{question.headurl}}"></image>
-            <text class="card-user-username">{{ question.username }}</text>
+            <image class="card-user-headurl" mode="{{imageMode}}" src="{{item.user.headurl}}"></image>
+            <text class="card-user-username">{{ item.user.username }}</text>
         </view>
     </view>
-    <view class="card-cover-box">
-        <image class="card-cover" src="{{question.cover}}"></image>
-    </view>
+    <image wx:if="{{item.img_url}}" class="card-cover" src="{{item.img_url}}"></image>
 </view>

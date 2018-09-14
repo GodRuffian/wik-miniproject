@@ -3,16 +3,20 @@ Component({
         imageMode: 'aspectFit'
     },
     properties: {
-      question: {
+      item: {
         type: Object,
           value: null
       }
     },
-    methods: {
+    ready: function (options) {
 
     },
-    ready() {
-        // console.log('is he')
-        console.log(this.properties.question)
+    methods : {
+        _handleTap: function (event) {
+            var id = event.currentTarget.id;
+            wx.navigateTo({
+                url: '/pages/answer/index?id='+id
+            })
+        }
     }
 })

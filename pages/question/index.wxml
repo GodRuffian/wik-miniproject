@@ -1,6 +1,19 @@
 <!--index.wxml-->
-<view class="container">
-  <view class="userinfo">
-    <text>问题页</text>
+<view class="question">
+  <view class="container">
+    <view class='quesion-title'>{{questionDetail.question.content}}</view>
+    <view class='question-des'>
+      <text>{{questionDetail.question.desc}}</text>
+      <text class='text-showAll'>展开全部</text>
+    </view>
+  </view>
+  <view class='question-answerCount'>
+    <view>11个回答</view>
+  </view>
+  <view style="padding-top: 30rpx;">
+    <view wx:if="{{questionDetail.answer.length > 0}}">
+       <hasAnswer wx:for="{{questionDetail.answer}}" wx:for-item="answer" id="answer.id" answer="{{answer}}"></hasAnswer>
+    </view>
+    <noAnswer wx:else></noAnswer>
   </view>
 </view>

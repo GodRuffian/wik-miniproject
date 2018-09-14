@@ -1,7 +1,46 @@
 <!--index.wxml-->
-<view class="answer">
-  <view class="userinfo">
-    <text>回答页</text>
-    <button bindtap="toQuestion">跳转到问题页</button>
+<view class="container">
+  <view class="answer">
+    <view class="answer-question-title" id="{{answer.question_id}}" bindtap="_questionDetail">{{answer.title}}</view>
+    <view class="blank"></view>
+    <view class="answer-body">
+      <view class="answer-body-head">
+        <image class="head-user-headurl" src="{{answer.user.headurl}}"></image>
+        <text class="head-username">{{answer.user.username}}</text>
+        <text class="head-user-profile">{{answer.user.profile}}</text>
+      </view>
+      <view class="answer-body-content">{{answer.content}}</view>
+      <view class="answer-body-footer">
+        <text>2018/09/13</text>
+      </view>
+    </view>
+  </view>
+</view>
+<view class="answer-footer">
+  <view class="answer-footer-blank"></view>
+  <view class="answer-footer-content">
+    <view class="answer-footer-left">
+    <view class="answer-footer-vote">
+      <image style="" src="/assets/images/Triangle_kaopu_press@2x.png"></image>
+      <text>靠谱766</text>
+    </view>
+    <view class="answer-footer-unvote answer-footer-com">
+      <image style="" src="/assets/images/Triangle_chedan_nor@2x.png"></image>
+    </view>
+  </view>
+  <view class="answer-footer-right">
+    <view class="answer-footer-comment answer-footer-com">
+      <image style="" src="/assets/images/Container@2x.png"> </image>
+      <text>评论10</text>
+    </view>
+    <view class="answer-footer-thank answer-footer-com">
+      <image style="" src="/assets/images/icon_appreciate_press@2x.png"></image>
+      <text>已感谢</text>
+    </view>
+    <view class="answer-footer-share answer-footer-com">
+      <image style="width:36rpx;height:36rpx;" src="/assets/images/icon_share@2x.png"></image>
+      <text>分享</text>
+    </view>
+  </view>
   </view>
 </view>

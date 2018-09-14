@@ -1,47 +1,43 @@
 /**component-index-card.wxss**/
 
 .component-index-card {
-    height: 152rpx;
+    position: relative;
+    display: flex;
     border-bottom: 1px solid #eee;
-    overflow: hidden;
     padding: 30rpx 0rpx;
 }
 .card-content {
-    display: inline-block;
-    /**position: relative;**/
-    width: 444rpx;
-    height: 152rpx;
-    margin-right: 20rpx;
-    position: relative;
-    /**top: -40rpx;**/
+    display: flex;
+    flex: auto;
+    flex-direction: column;
+    justify-content: space-between;
 }
 .card-question-title {
-    display: inline-block;
-    width: 444rpx;
-    height: 96rpx;
     font-size: 34rpx;
-    margin-bottom: 30rpx;
-
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display:-webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
 }
+
 .card-user {
-   height: 26rpx;
+    display: flex;
+    align-item: center;
+    margin-top: 20rpx;
 }
 .card-user-headurl {
-    display: inline-block;
-    margin-right: 4rpx;
     width: 26rpx;
     height: 26rpx;
-    border-radius: 26rpx;
+    border-radius: 50%;
+    margin-right: 8rpx;
 }
 .card-user-username {
     font-size: 26rpx;
-    line-height: 10rpx;
-}
-.card-cover-box {
-    display: inline-block;
+
 }
 .card-cover {
-    width: 226rpx;
+    flex: 0 0 226rpx;
     height: 152rpx;
-    border-radius: 10rpx;
+    margin-left: 20rpx;
 }

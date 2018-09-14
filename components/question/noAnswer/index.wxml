@@ -1,0 +1,8 @@
+<view class="no-answer">
+    <view class="no-answer-icon">
+        <image src='/assets/images/img_noanswer@2x.png'></image>
+    </view>
+    <view class="no-answer-text">
+        暂时没有相关回答
+    </view>
+</view>
