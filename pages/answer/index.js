@@ -3,7 +3,8 @@ const HOST = 'http://local.collegewiki.com/api/miniprogram/'
 
 Page({
     data: {
-        answer: {}
+        answer: {},
+        showShareModal: false
     },
     onLoad: function (options) {
         var id = options.id
@@ -30,6 +31,21 @@ Page({
         wx.navigateTo({
             url: "/pages/question/index?id="+id
         })
+    },
+    _toComment: function (event) {
+        var answerId = event.currentTarget.id;
+        // console.log(event);return
+        wx.navigateTo({
+            url: '/pages/comment/index?id='+answerId
+        })
+    },
+    _myModal: function (event) {
+        var currentStatus = event.currentTarget.dataset.status;
+        if (currentStatus === 'open') {
+            this.setData({showShareModal: true})
+        } else if (currentStatus === 'close') {
+            this.setData({showShareModal: false})
+        }
     }
 
 })

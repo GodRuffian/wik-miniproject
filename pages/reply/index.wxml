@@ -1,0 +1,32 @@
+<view class="comment container">
+    <image class="comment-user-headurl" src="{{comment.user.headurl}}"></image>
+    <view>
+        <view class="comment-user">
+            <text class="comment-user-username">{{comment.user.username}}</text>
+            <text class="comment-created_at">{{comment.created_at}}</text>
+        </view>
+        <view class="comment-content">{{comment.content}}</view>
+        <view class="comment-footer">
+            <text class="comment-footer-count">{{comment.agree_count}}</text>
+            <image class="comment-vote-icon" src="/assets/images/icon_dianzan_press@2x.png"></image>
+        </view>
+    </view>
+</view>
+<view class="blank"></view>
+<view class="">
+    <view class="comment-replys-count">{{replys.length}}条回复</view>
+    <view class="comment container" wx:for="{{replys}}" wx:key="{{item.id}}" id="{{item.id}}">
+        <image class="comment-user-headurl" src="{{item.user.headurl}}"></image>
+        <view>
+            <view class="comment-user">
+                <text class="comment-user-username">{{item.user.username}}</text>
+                <text class="comment-created_at">{{item.created_at}}</text>
+            </view>
+            <view class="comment-content">{{item.content}}</view>
+            <view class="comment-footer">
+                <text class="comment-footer-count">{{item.agree_count}}</text>
+                <image class="comment-vote-icon" src="/assets/images/icon_dianzan_press@2x.png"></image>
+            </view>
+        </view>
+    </view>
+</view>

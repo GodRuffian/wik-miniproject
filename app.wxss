@@ -9,3 +9,7 @@
   box-sizing: border-box;
   font-size: 30rpx;
 } 
+.blank {
+    height: 20rpx;
+    background-color: #f0f2f5;
+}

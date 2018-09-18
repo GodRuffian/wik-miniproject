@@ -1,6 +1,6 @@
 <view class="user">
-       <image class="user-headurl" src="http://abroadimg.collegedaily.com.cn/abroadimg/question/AYQW3B1508299023.png"></image>
-        <text wx:if="{{customUsername}}"class="user-username-custom">呱呱</text>
-        <text wx:else class="user-username">呱呱</text>
-        <text wx:if="{{customUsername !== true}}" class="user-profile">php java coder</text>
+       <image class="user-headurl" src="user.headurl"></image>
+        <text wx:if="{{customUsername}}"class="user-username-custom">{{user.username}}</text>
+        <text wx:else class="user-username">{{user.username}}</text>
+        <text wx:if="{{customUsername !== true}}" class="user-profile">{{user.profile}}</text>
 </view>

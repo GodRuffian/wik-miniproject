@@ -23,7 +23,7 @@
 
 .card-user {
     display: flex;
-    align-item: center;
+    align-items: center;
     margin-top: 20rpx;
 }
 .card-user-headurl {

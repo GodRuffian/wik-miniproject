@@ -22,25 +22,42 @@
     <view class="answer-footer-left">
     <view class="answer-footer-vote">
       <image style="" src="/assets/images/Triangle_kaopu_press@2x.png"></image>
-      <text>靠谱766</text>
+      <text>靠谱{{answer.agree_count}}</text>
     </view>
     <view class="answer-footer-unvote answer-footer-com">
       <image style="" src="/assets/images/Triangle_chedan_nor@2x.png"></image>
     </view>
   </view>
   <view class="answer-footer-right">
-    <view class="answer-footer-comment answer-footer-com">
+    <view class="answer-footer-comment answer-footer-com" id="{{answer.id}}" bindtap="_toComment">
       <image style="" src="/assets/images/Container@2x.png"> </image>
-      <text>评论10</text>
+      <text>评论{{answer.comments_count}}</text>
     </view>
     <view class="answer-footer-thank answer-footer-com">
       <image style="" src="/assets/images/icon_appreciate_press@2x.png"></image>
       <text>已感谢</text>
     </view>
-    <view class="answer-footer-share answer-footer-com">
+    <view class="answer-footer-share answer-footer-com" bindtap="_myModal" data-status="open">
       <image style="width:36rpx;height:36rpx;" src="/assets/images/icon_share@2x.png"></image>
       <text>分享</text>
     </view>
   </view>
   </view>
+</view>
+<view class="my-modal" wx:if="{{showShareModal}}"></view>
+<view class="my-modal-container" wx:if="{{showShareModal}}">
+        <view class="my-modal-container-head">分享回答</view>
+        <view class="my-modal-container-body">
+            <view class="my-modal-container-body-v1">
+                <image class="my-modal-container-body-img1" src="/assets/images/Wechat@2x.png"></image>
+                <text>微信好友</text>
+            </view>
+            <view class="my-modal-container-body-v2">
+                <image src="/assets/images/PYQ@2x.png"></image>
+                <text>微信朋友圈</text>
+            </view>
+        </view>
+        <view class="my-modal-box-footer" bindtap="_myModal" data-status="close">
+            <image src="/assets/images/icon_close@2x.png"></image>
+        </view>
 </view>
