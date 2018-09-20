@@ -4,4 +4,5 @@
 
     <search bindtap="_toSearch"></search>
     <indexCard wx:for="{{lists}}" wx:key="item.id" item="{{item}}"></indexCard>
+    <view class="modal" wx:if="{{isRegisted}}"><button open-type="getUserInfo" bindgetuserinfo="_getUserInfoCallback"></button></view>
 </scroll-view>

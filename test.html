@@ -2,12 +2,37 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Document</title>
+    <script src="jquery.min.js"></script>
+    <script src="html2canvas.js"></script>
 </head>
 <body>
+<div id="content" style="width:150px;height:150px;border:1px solid blue;">
+    <span>Hello World!</span>
+    <br>
+    <span><h2>Are you hear me?</h2></span>
+</div>
+<button id="btnSave">save</button>
 <script>
-    var a = '不排除高级外星文明的联络方式，并非我们人类所熟知的以电磁波为载体，所以我们无法有效的检测到他们的联络信息。';
-    console.log(a.length)
+    $(function(){
+        $('#btnSave').click(function(event) {
+            html2canvas($('#content'),{
+                onrendered: function(canvas) {
+                    document.body.appendChild(canvas);
+                    convertCanvasToImage(canvas);
+                }
+            })
+
+        });
+
+        function convertCanvasToImage(canvas) {
+            var image = new Image();
+            image.src = canvas.toDataURL("image/png");
+            document.body.appendChild(image);
+            return image;
+        }
+
+    })
 </script>
 </body>
 </html>

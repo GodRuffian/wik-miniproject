@@ -1,0 +1,21 @@
+<view class="share">
+
+    <!--<view id="#share-content">
+        <view>
+            <image src="/assets/images/bg@2x.png"></image>
+            <image src=""></image>
+            <text>佩尔姑娘</text>
+            <text>分享了回答</text>
+        </view>
+        <image src="/assets/images/img_douhao@2x.png"></image>
+        <view class="question-title">马上就出发去纽约大学读本科了,我听说出国在外很多法律上的问题常常带来极大的困扰，有什么好办法解决吗有什么好办法解决吗?</view>
+        <view class="answer-content">我推荐NYIS的Plus 91套餐 ，这个险种是专门为留学生开发的，完全符合美国的奥巴马健保法，在提供法律有保障的保险的同时为留学生提供各种免费的法律咨询服务，它...</view>
+        <image src="/assets/images/img_code@2x.png"></image>
+        <text>长按识别二维码</text>
+        <text>留学维基精选</text>
+    </view>-->
+    <canvas class="share-canvas" style="width: 100%;height: 614px;background: #fff;margin-bottom: 136rpx;" canvas-id="shareCircleFriend"></canvas>
+</view>
+<view class="share-footer">
+    <view>保存图片分享到朋友圈</view>
+</view>

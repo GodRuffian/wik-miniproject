@@ -20,3 +20,17 @@
 .usermotto {
   margin-top: 200px;
 }
+.modal {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+.modal button {
+    width: 100%;
+    height: 100%;
+    background: none;
+    z-index: 1001;
+}

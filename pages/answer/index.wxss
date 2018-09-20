@@ -2,7 +2,7 @@
 
 .answer {
   color: #999;
-  
+  margin-bottom: 112rpx;
 }
 
 .answer-body {
@@ -214,7 +214,6 @@
 .my-modal-container-body {
     display: flex;
     flex-direction: row;
-    align-items: center;
     justify-content: center;
 }
 .my-modal-container-body view {
@@ -248,4 +247,17 @@
     width: 48rpx;
     height:48rpx;
     padding: 30rpx 0rpx;
+}
+.share-friend{
+    margin: 0rpx;
+    background: none;
+    padding: 0rpx;
+    border: none;
+    border-color: #fff;
+    line-height: 20rpx;
+    overflow: none;
+    height: 160rpx;
+}
+.share-friend::after {
+    border: none;
 }

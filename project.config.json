@@ -9,8 +9,8 @@
 	},
 	"compileType": "miniprogram",
 	"libVersion": "1.6.6",
-	"appid": "touristappid",
-	"projectname": "rewriteWikimini",
+	"appid": "wx4b39ae3ff77cb4d1",
+	"projectname": "wiki-miniapp",
 	"condition": {
 		"search": {
 			"current": -1,
