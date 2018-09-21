@@ -1,6 +1,5 @@
 // import config from '/config/config.js'
-const HOST = 'http://local.collegewiki.com/api/miniprogram/'
-
+import {HOST} from '../../config/config.js'
 Page({
     data: {
             agree_count: '',
@@ -11,14 +10,16 @@ Page({
             id: null,
             question_id: null,
             title: '',
+            is_vote: null,
+            is_thank: null,
         user: null,
 
         showShareModal: false,
-        isVote: false,
         voteIcon: '/assets/images/Triangle_kaopu_pressCopy2@2x.png',
         unvoteIcon: '/assets/images/Triangle_chedan_nor@2x.png',
         thank: false,
-        thankIcon: '/assets/images/icon_appreciate_nor@2x.png'
+        thankIcon: '/assets/images/icon_appreciate_press@2x.png',
+        unthankIcon: '/assets/images/icon_appreciate_nor@2x.png'
     },
     onLoad: function (options) {
         var id = options.id
@@ -45,7 +46,9 @@ Page({
                         id: data.id,
                         question_id: data.question_id,
                         title: data.title,
-                        user: data.user
+                        user: data.user,
+                        is_vote: data.is_vote,
+                        is_thank: data.is_thank
                     })
                 }
             }
@@ -89,14 +92,15 @@ Page({
     _vote: function (event) {
         console.log(event)
         var isVote = event.currentTarget.dataset.isvote
+        var answerId = event.currentTarget.dataset.id
         if (!isVote) {
             this.setData({
-                isVote: true,
+                is_vote: true,
                 agree_count: this.data.agree_count + 1,
                 voteIcon: '/assets/images/Triangle_kaopu_press@2x.png',
                 unvoteIcon: '/assets/images/Triangle_chedan_nor@2x.png',
             })
-
+            this._apiVote(answerId)
         } else {
             /*wx.showToast({
                 title: '已点赞'
@@ -105,29 +109,60 @@ Page({
     },
     _unvote: function (event) {
         var isVote = event.currentTarget.dataset.isvote
+        var answerId = event.currentTarget.dataset.id;
         var count = (this.data.agree_count !== '' || this.data.agree_count !== 0) ? this.data.agree_count -1 : 0
         if (isVote) {
             this.setData({
-                isVote: false,
+                is_vote: false,
                 agree_count: count,
                 unvoteIcon: '/assets/images/Triangle_chedan_press@2x.png',
                 voteIcon: '/assets/images/Triangle_kaopu_pressCopy2@2x.png'
             })
+            this._apiThank(answerId)
         } else {
         }
     },
     _thank: function (event) {
         var thank = event.currentTarget.dataset.thank
+        var answerId = event.currentTarget.dataset.id
+        this._apiThank(answerId)
         if (thank) {
             this.setData({
-                thank: false,
+                is_thank: false,
                 thankIcon: '/assets/images/icon_appreciate_nor@2x.png',
             })
         } else {
             this.setData({
-                thank: true,
+                is_thank: true,
                 thankIcon: '/assets/images/icon_appreciate_press@2x.png',
             })
         }
+    },
+    // 回答点赞
+    _apiVote: function (answerId) {
+        if (answerId == '') {
+            return
+        }
+        wx.request({
+            url: HOST+'answer/'+answerId+'/vote',
+            method: 'POST',
+            data: {
+                token: wx.getStorageSync('token')
+            },
+            success: function (res) {
+            },
+            fail: function () {
+
+            }
+        })
+    },
+    // 感谢
+    _apiThank: function (answerId) {
+        wx.request({
+            url: HOST+'answer/'+answerId+'/thank',
+            method: 'POST',
+            success: function (res) {
+            }
+        })
     }
 })

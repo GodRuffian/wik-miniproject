@@ -1,1 +1,1 @@
-export const HOST = 'local.collegewiki.com/api/miniprogram/'
+export const HOST = 'http://local.collegewiki.com/api/miniprogram/'

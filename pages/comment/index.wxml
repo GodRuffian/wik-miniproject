@@ -1,4 +1,4 @@
-<view class="comment container" wx:for="{{comments}}" wx:key="{{item.id}}" id="{{item.id}}" bindtap="_toReply">
+<view class="comment container" wx:for="{{comments}}" wx:key="{{item.id}}" id="{{item.id}}">
     <image class="comment-user-headurl" src="{{item.user.headurl}}"></image>
     <view>
         <view class="comment-user">
@@ -8,8 +8,9 @@
         <view class="comment-content">{{item.content}}</view>
         <view class="comment-footer">
             <text class="comment-footer-count">{{item.agree_count}}</text>
-            <image class="comment-vote-icon" src="/assets/images/icon_dianzan_press@2x.png"></image>
-            <text wx:if="{{item.content.length > 55}}">查看全部回复</text>
+            <image class="comment-vote-icon" wx:if="{{item.is_vote}}" src="{{voteIcon}}" bindtap="_vote" data-id="{{item.id}}"></image>
+            <image class="comment-vote-icon" wx:else src="{{unvoteIcon}}" bindtap="_vote" data-id="{{item.id}}"></image>
+            <text wx:if="{{item.reply_count > 0}}" bindtap="_toReply">查看全部回复</text>
         </view>
     </view>
 </view>

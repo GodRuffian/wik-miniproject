@@ -19,25 +19,46 @@ Page({
     },
     _isAuth: function () {
 
-        var auth = wx.getStorageSync('auth')
+        var auth = wx.getStorageSync('temp_user')
         if (!auth) {
-            return false
+            return true
         }
-        return true
+        return false
     },
     _regist: function () {
         var that = this
+        this.setData({isRegisted: false})
         // 用户没有注册成功需授权
         if (!this._isAuth()) {
+            wx.login({
+                success: function (res) {
+                    // 发送 res.code 到后台换取 openId, sessionKey, unionId
+                    var code = res.code
+                    wx.request({
+                        url: HOST+'register',
+                        method: 'POST',
+                        data: {
+                            code: code
+                        },
+                        acceptType: 'json',
+                        success: function (res) {
+                            if (res.data.errorcode == '0') {
+                                wx.setStorage({key:'token', data: res.data.data.token})
+                                // wx.setStorage({key: 'auth', data: res.data.data.auth})
+                                wx.setStorage({key: 'temp_user', data: false})
+                            }
+                        }
+                    })
+                }
+            })
             // 获取用户信息
-            /*wx.getSetting({
+            wx.getSetting({
                 success: function(res) {
                     if (res.authSetting['scope.userInfo']) {
                         // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
                         wx.getUserInfo({
                             success: function(res) {
                                 // 可以将 res 发送给后台解码出 unionId
-                                this.globalData.userInfo = res.userInfo
                                 // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
                                 // 所以此处加入 callback 以防止这种情况
                                 if (this.userInfoReadyCallback) {
@@ -47,33 +68,10 @@ Page({
                         })
                     }
                 }
-            })*/
+            })
         } else {
-            this.setData({isRegisted: false})
             return
         }
-        wx.login({
-            success: function (res) {
-                // 发送 res.code 到后台换取 openId, sessionKey, unionId
-                var code = res.code
-                wx.request({
-                    url: HOST+'register',
-                    method: 'POST',
-                    data: {
-                        code: code
-                    },
-                    acceptType: 'json',
-                    success: function (res) {
-                        if (res.data.errorcode == '0') {
-                            wx.setStorage({key:'token', data: res.data.data.token})
-                            // wx.setStorage({key: 'auth', data: res.data.data.auth})
-                            wx.setStorage({key: 'auth', data: false})
-                        }
-                    }
-                })
-            }
-        })
-
     },
     _getQuestions: function () {
         var that = this
