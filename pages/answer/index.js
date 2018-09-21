@@ -1,5 +1,6 @@
 // import config from '/config/config.js'
 import {HOST} from '../../config/config.js'
+var wxParse = require('../../utils/wxParse.js');
 Page({
     data: {
             agree_count: '',
@@ -41,7 +42,7 @@ Page({
                         agree_count: data.agree_count,
                         comments_count: data.comments_count,
                         comment: data.comment,
-                        content: data.content,
+                        content: wxParse.wxParse('content', 'html', data.content, that),
                         created_at: data.created_at,
                         id: data.id,
                         question_id: data.question_id,
