@@ -34,3 +34,19 @@
     background: none;
     z-index: 1001;
 }
+.update-note {
+    position: fixed;
+    top: -51rpx;
+    left: 0;
+    right: 0;
+    z-index: 9;
+    font-size: 24rpx;
+    background-color: rgba(255, 255, 255, 0.95);
+    height: 51rpx;
+    color: #00807d;
+    text-align: center;
+}
+.update-note--active {
+    top: 0;
+    transition: all 0.3s linear;
+}

@@ -1,5 +1,5 @@
 const HOST = 'http://local.collegewiki.com/api/miniprogram/'
-
+import {intervalToNow} from '../../utils/util'
 
 Page({
     data: {
@@ -46,7 +46,6 @@ Page({
     onLoad: function (options) {
         console.log(options)
         var id = options.id
-        var id = 950;
         this._getComments(id)
     },
     _getComments: function (answerId) {
@@ -60,8 +59,13 @@ Page({
             success: function (res) {
                 // console.log(res)
                 if (res.data.errorcode === '0') {
+                    for (var i = 0; i < res.data.data.length; i++) {
+                        res.data.data[i].created_at = intervalToNow(res.data.data[i].created_at)
+                    }
                     that.setData({comments: res.data.data})
                 }
+            },
+            fail: function () {
             }
         })
     },

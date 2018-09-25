@@ -1,20 +1,42 @@
+import {HOST, HOST_DEV} from '../../config/config'
+
 Page({
     data: {
-        search: [
-            {'title': '大会的哈达拉的拉拉队进垃圾堆机阿来得及拉来得及的路径ad骄傲了', 'content': '开始发货哈烽火芳菲换话费卡发货发货发开发好看哈佛付款后发放括号'}
-        ],
-        historySearch: [
-            {'keyword': '哈哈'},
-            {'keyword': 'dhkadh '},
-            {'keyword': '哈哈'},
-            {'keyword': 'dhkadh '},
-            {'keyword': '哈哈'},
-            {'keyword': 'dhkadh '},
-            {'keyword': '哈哈'},
-            {'keyword': 'dhkadh '},
-            {'keyword': '哈哈'},
-            {'keyword': 'dhkadh '}
-        ]
+        search: [],
+        historySearch: [],
+        flag: false
+    },
+    _search: function (event) {
+        console.log(event)
+        var that = this
+        var keyword = event.detail.value
+        console.log(keyword)
+        var search = wx.getStorageSync('search')
+        if (search.length > 10) {
+            search.pop()
+            search.unshift({keyword: keyword})
+        } else if (search.length == 0) {
+            search = new Array()
+            search.unshift({keyword: keyword})
+        } else {
+            search.unshift({keyword: keyword})
+        }
+        wx.setStorage({
+            key: 'search',
+            data: search
+        })
+        wx.request({
+            url: HOST_DEV+'search?q='+keyword,
+            acceptType: 'json',
+            success: function (res) {
+                console.log(res)
+                if (res.data.errorcode === '0') {
+                    console.log(res)
+                    that.setData({search: res.data.data, flag: false})
+                }
+            }
+        })
+        // this.onLoad()
     },
     _searchCancle: function () {
         wx.navigateBack({
@@ -23,8 +45,27 @@ Page({
         })
     },
     onLoad: function () {
-        // wx.navigateTo({
-        //     url: "/pages/search/index"
-        // })
+        var search = wx.getStorageSync('search')
+        this.setData({historySearch: search})
+    },
+
+    _bindfocus: function (event) {
+        this.onLoad()
+        this.setData({flag: true})
+    },
+    _delSearch: function (event) {
+        var value = event.currentTarget.dataset.value
+        var searchs = wx.getStorageSync('search')
+        for (var i=0; i< searchs.length; i++) {
+            if (searchs[i].keyword == value) {
+                searchs.splice(i, 1)
+            }
+        }
+        wx.setStorage({key: 'search', data: searchs})
+        this.onLoad()
+    },
+    _flushSearch: function (event) {
+        wx.removeStorageSync('search')
+        this.onLoad()
     }
 })

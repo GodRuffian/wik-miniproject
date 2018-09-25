@@ -131,7 +131,7 @@
   height: 76rpx;
 }
 .answer-footer-comment {
-  position: absolute;
+  /**position: absolute;**/
 
 }
 .answer-footer-comment image {
@@ -212,6 +212,7 @@
     text-align: center;
 }
 .my-modal-container-body {
+    height: 174rpx;
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -260,4 +261,9 @@
 }
 .share-friend::after {
     border: none;
+}
+.wxParse-inline {
+    line-height: 54rpx;
+    color: #333333;
+    font-size: 34rpx;
 }

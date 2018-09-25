@@ -1,3 +1,6 @@
+// var wxParse = require('../../utils/wxParse.js')
+var wxParse = require('../../utils/html2json.js')
+import { formatTime, removeHTMLTag, getFirstImage, intervalToNow } from '../../utils/util'
 const HOST = 'http://local.collegewiki.com/api/miniprogram/'
 
 Page({
@@ -17,7 +20,8 @@ Page({
       anim: 'scaleIn',    //scaleIn：缩放打开(默认)  fadeIn：渐变打开  fadeInUpBig：由上向下打开 fadeInDownBig：由下向上打开  rollIn：左侧翻转打开  shake：震动  footer：底部向上弹出
       time: 0,            //设置弹窗自动关闭秒数
       btns: null          //不设置则不显示按钮。如果只需要一个按钮，则btn: '按钮'，如果有两个，则：btn: ['按钮一', '按钮二']
-    }
+    },
+    showdescButton: false
   },
   properties: {
 
@@ -25,9 +29,9 @@ Page({
   onLoad: function (options) {
     var id = options.id
     // console.log(id+'###')
-    this._getQuestionDetail(id)
+    this._getQuestionDetail(id, wxParse)
   },
-  _getQuestionDetail: function (id) {
+  _getQuestionDetail: function (id, wxParse) {
     var that = this
     // var HOST = that.globalData.config
     var id = 42;
@@ -37,9 +41,25 @@ Page({
       success: function (res) {
         // console.log(res)
         if (res.data.errorcode === '0') {
-          console.log(res.data.data)
+          // console.log(res.data.data)
+
+          var question = res.data.data.question;
+          question.descLength = question.desc.length
+          if (question.descLength > 50) {
+            question.descSub = question.desc.substr(0, 60) + '...'
+            that.setData({ showdescButton: true })
+          }
+
+          var answers = res.data.data.answer;
+          for (let i = 0; i < answers.length; i++) {
+            answers[i].cover = getFirstImage(answers[i].content)
+            answers[i].content = removeHTMLTag(answers[i].content)
+            answers[i].created_at = intervalToNow(answers[i].created_at)
+          }
+          console.log(answers)
           that.setData({ question: res.data.data.question })
-          that.setData({ answers: res.data.data.answer })
+          that.setData({ answers: answers })
+
         }
       }
     })
@@ -89,5 +109,16 @@ Page({
     } else if (currentStatus === 'close') {
       this.setData({ showShareModal: false })
     }
+  },
+  _showDesc: function (event) {
+    this.setData({
+      showdescButton: false
+    })
+  },
+  _toAnswer: function (event) {
+    var answerId = event.currentTarget.dataset.id
+    wx.navigateTo({
+      url: '/pages/answer/index?id=' + answerId
+    })
   }
 })

@@ -1,6 +1,7 @@
 // import config from '/config/config.js'
 import {HOST} from '../../config/config.js'
-var wxParse = require('../../utils/wxParse.js');
+var wxParse = require('../../utils/wxParse.js')
+import {intervalToNow} from '../../utils/util'
 Page({
     data: {
             agree_count: '',
@@ -20,17 +21,21 @@ Page({
         unvoteIcon: '/assets/images/Triangle_chedan_nor@2x.png',
         thank: false,
         thankIcon: '/assets/images/icon_appreciate_press@2x.png',
-        unthankIcon: '/assets/images/icon_appreciate_nor@2x.png'
+        unthankIcon: '/assets/images/icon_appreciate_nor@2x.png',
     },
     onLoad: function (options) {
         var id = options.id
-        var id = 45
-        this._getAnswer(id)
+        // var id = 45
+        this._getAnswer(id, wxParse)
+        // console.log(formatTime.formatTime)
+        if (this.data.content !== '') {
+            // wxParse.wxParse('content', 'html', data.content, this, 15)
+        }
         // var version = wx.getSystemInfoSync()
         // console.log(version)
     },
 
-    _getAnswer: function(answerId) {
+    _getAnswer: function(answerId, wxParse) {
         var that = this
         wx.request({
             url: HOST+'answers/'+answerId,
@@ -38,12 +43,13 @@ Page({
             success: function (res) {
                 if (res.data.errorcode === '0') {
                     var data = res.data.data
+                    // console.log('@@'+data.content)
                     that.setData({
                         agree_count: data.agree_count,
                         comments_count: data.comments_count,
                         comment: data.comment,
-                        content: wxParse.wxParse('content', 'html', data.content, that),
-                        created_at: data.created_at,
+                        content: data.content,
+                        created_at: intervalToNow(data.created_at),
                         id: data.id,
                         question_id: data.question_id,
                         title: data.title,
@@ -51,6 +57,7 @@ Page({
                         is_vote: data.is_vote,
                         is_thank: data.is_thank
                     })
+                    wxParse.wxParse('content', 'html', data.content, that, 15)
                 }
             }
         })

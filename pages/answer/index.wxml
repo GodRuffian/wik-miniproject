@@ -1,4 +1,5 @@
 <!--index.wxml-->
+<import src="../../utils/wxParse.wxml"/>
 <view class="container">
   <view class="answer">
     <view class="answer-question-title" id="{{question_id}}" bindtap="_questionDetail">{{title}}</view>
@@ -9,9 +10,10 @@
         <text class="head-username">{{user.username}}</text>
         <text class="head-user-profile">{{user.profile}}</text>
       </view>
-      <view class="answer-body-content">{{content}}</view>
+      <!--<view class="answer-body-content">{{content}}</view>-->
+      <template is="wxParse" data="{{wxParseData:content.nodes}}"/>
       <view class="answer-body-footer">
-        <text>2018/09/13</text>
+        <text>{{created_at}}</text>
       </view>
     </view>
   </view>
@@ -29,7 +31,7 @@
       </view>
     </view>
     <view class="answer-footer-right">
-      <view class="answer-footer-comment answer-footer-com" id="{{answer.id}}" bindtap="_toComment">
+      <view class="answer-footer-comment answer-footer-com" id="{{id}}" bindtap="_toComment">
         <image style="" src="/assets/images/Container@2x.png"> </image>
         <text>评论{{comments_count}}</text>
       </view>
