@@ -28,13 +28,14 @@ Page({
   },
   onLoad: function (options) {
     var id = options.id
+
     // console.log(id+'###')
     this._getQuestionDetail(id, wxParse)
   },
   _getQuestionDetail: function (id, wxParse) {
     var that = this
     // var HOST = that.globalData.config
-    var id = 42;
+    // var id = 42;
     wx.request({
       url: HOST + 'questions/' + id,
       acceptType: 'json',
@@ -46,7 +47,8 @@ Page({
           var question = res.data.data.question;
           question.descLength = question.desc.length
           if (question.descLength > 50) {
-            question.descSub = question.desc.substr(0, 60) + '...'
+              question.desc = removeHTMLTag(question.desc)
+              question.descSub = question.desc.substr(0, 60) + '...'
             that.setData({ showdescButton: true })
           }
 
@@ -54,10 +56,11 @@ Page({
           for (let i = 0; i < answers.length; i++) {
             answers[i].cover = getFirstImage(answers[i].content)
             answers[i].content = removeHTMLTag(answers[i].content)
-            answers[i].created_at = intervalToNow(answers[i].created_at)
+              answers[i].created_at = intervalToNow(answers[i].created_at)
+
           }
           console.log(answers)
-          that.setData({ question: res.data.data.question })
+          that.setData({ question: question })
           that.setData({ answers: answers })
 
         }

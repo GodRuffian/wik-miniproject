@@ -66,122 +66,59 @@
   background-color: #f0f2f5;
 }
 .answer-footer-content {
-  width: 100%;
-  padding: 10rpx 30rpx;
-}
-.answer-footer view {
-  float: left;
-
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    padding: 10rpx 0;
+    font-size: 24rpx;
+    color: #00807D;
 }
 .answer-footer-left {
-  position: relative;
-  width: 50%;
-  height: 76rpx;
-  line-height: 76rpx;
+    width: 50%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-left: 30rpx;
 }
-.answer-footer-left .answer-footer-vote {
-  position: absolute;
-  width: 180rpx;
-  height: 76rpx;
-  background: #f2f2f2;
-  line-height: 76rpx;
-  border-radius: 8rpx;
+.answer-footer-left view{
+    display: flex;
+    flex-direction: row;
+    border-radius: 4rpx;
 }
-
-.answer-footer-left .answer-footer-vote image {
-  width: 24rpx;
-  height: 24rpx;
-  display: inline-block;
-  position: absolute;
-  left: 20rpx;
-  top: 20rpx;
-  padding: 2rpx;
-  border: 1px dotted #6b7f99;
+.answer-footer-left view:nth-of-type(1) {
+    padding: 20rpx;
+    background: #F2F2F2;
+    margin-right: 20rpx;
 }
-.answer-footer-left .answer-footer-vote text {
-  position: absolute;
-  left: 62rpx;
+.answer-footer-left view:nth-of-type(1) image{
+    margin-right: 10rpx;
 }
-.answer-footer-unvote {
-  position: absolute;
-  left: 232rpx;
-  border-radius: 8rpx;
-  background: #f2f2f2;
-  width: 92rpx;
-  height: 76rpx;
+.answer-footer-left view:nth-of-type(2) {
+    padding: 20rpx 30rpx;
+    background: #F2F2F2;
 }
-
-.answer-footer-unvote image {
-  border: 1px dotted #6b7f99;
-  width: 24rpx;
-  height: 24rpx;
-  position: absolute;
-  display: inline-block;
-  padding: 2rpx;
-  left: 31rpx;
-  top: 20rpx;
+.answer-footer-left view image{
+    width: 32rpx;
+    height: 32rpx;
 }
 .answer-footer-right {
-  position: relative;
-  height: 76rpx;
-  line-height: 76rpx;
-  width: 50%;
+    width: 50%;
+    display: flex;
+    flex-direction: row;
+    margin-right: 30rpx;
+    justify-content: space-between;
 }
 .answer-footer-right view {
-  height: 76rpx;
-}
-.answer-footer-comment {
-  /**position: absolute;**/
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
 }
-.answer-footer-comment image {
-  display: inline-block;
-  width: 40rpx;
-  height: 40rpx;
-  position: absolute;
-  left: 44rpx;
-  top: 0rpx;
+.answer-footer-right view image{
+    width: 40rpx;
+    height: 40rpx;
 }
-.answer-footer-comment text {
-  position: absolute;
-  display: inline-block;
-  width: 100rpx;
-  left: 30rpx;
-  top: 20rpx;
-  font-size: 24rpx;
-}
-.answer-footer-thank {
 
-}
-.answer-footer-thank image {
-  width: 40rpx;
-  height: 40rpx;
-  position: absolute;
-  top: 0rpx;
-  left: 172rpx;
-}
-.answer-footer-thank text {
-  width: 100rpx;
-  position: absolute;
-  display: inline-block;
-  left: 156rpx;
-  top: 20rpx;
-  font-size: 24rpx;
-}
-.answer-footer-share {
-
-}
-.answer-footer-share image {
-  position: absolute;
-  left: 272rpx;
-  top: 0rpx;
-}
-.answer-footer-share text {
-  width: 100rpx;
-  position: absolute;
-  left: 266rpx;
-  top: 20rpx;
-}
 .my-modal {
     width: 100%;
     height: 100%;

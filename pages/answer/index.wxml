@@ -2,7 +2,7 @@
 <import src="../../utils/wxParse.wxml"/>
 <view class="container">
   <view class="answer">
-    <view class="answer-question-title" id="{{question_id}}" bindtap="_questionDetail">{{title}}</view>
+    <view class="answer-question-title" id="{{question_id}}" bindtap="_toQuestion">{{title}}</view>
     <view class="blank"></view>
     <view class="answer-body">
       <view class="answer-body-head">
@@ -26,22 +26,22 @@
         <image style="" src="{{voteIcon}}"></image>
         <text>靠谱{{agree_count}}</text>
       </view>
-      <view class="answer-footer-unvote answer-footer-com" bindtap="_unvote" data-isvote="{{is_vote}}" data-id="{{id}}">
+      <view class="answer-footer-unvote" bindtap="_unvote" data-isvote="{{is_vote}}" data-id="{{id}}">
         <image style="" src="{{unvoteIcon}}"></image>
       </view>
     </view>
     <view class="answer-footer-right">
-      <view class="answer-footer-comment answer-footer-com" id="{{id}}" bindtap="_toComment">
+      <view class="answer-footer-comment" data-id="{{id}}" bindtap="_toComment">
         <image style="" src="/assets/images/Container@2x.png"> </image>
         <text>评论{{comments_count}}</text>
       </view>
-      <view class="answer-footer-thank answer-footer-com" bindtap="_thank" data-thank="{{is_thank}}" data-id="{{id}}">
+      <view class="answer-footer-thank" bindtap="_thank" data-thank="{{is_thank}}" data-id="{{id}}">
         <image style="" wx:if="{{is_thank}}" src="{{thankIcon}}"></image>
         <image style="" wx:else src="{{unthankIcon}}"></image>
         <text wx:if="{{is_thank}}">已感谢</text>
         <text wx:else style="margin-left: 12rpx;">感谢</text>
       </view>
-      <view class="answer-footer-share answer-footer-com" bindtap="_myModal" data-status="open">
+      <view class="answer-footer-share" bindtap="_myModal" data-status="open">
         <image style="width:36rpx;height:36rpx;" src="/assets/images/icon_share@2x.png"></image>
         <text>分享</text>
       </view>

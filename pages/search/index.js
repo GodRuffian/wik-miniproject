@@ -1,4 +1,5 @@
 import {HOST, HOST_DEV} from '../../config/config'
+import wxParse from '../../utils/html2json.js'
 
 Page({
     data: {
@@ -25,18 +26,30 @@ Page({
             key: 'search',
             data: search
         })
+        this._getSearchResult(that, keyword)
+        // this.onLoad()
+    },
+    _getSearchResult: function (that, keyword) {
         wx.request({
             url: HOST_DEV+'search?q='+keyword,
             acceptType: 'json',
             success: function (res) {
-                console.log(res)
+                // console.log(res)
                 if (res.data.errorcode === '0') {
-                    console.log(res)
-                    that.setData({search: res.data.data, flag: false})
+                    var data = res.data.data;
+                    // console.log(res)
+                    for (var i = 0; i < data.length; i++) {
+                        // data[i].question.content = wxParse.wxParse('content1', 'html', data[i].question.content, that)
+                        data[i].question.content = wxParse.html2json(data[i].question.content, 'content')
+                        if (data[i].answer.body) {
+                            data[i].answer.body = wxParse.html2json(data[i].answer.body, 'body')
+                        }
+                    }
+                    console.log(data)
+                    that.setData({search: data, flag: false})
                 }
             }
         })
-        // this.onLoad()
     },
     _searchCancle: function () {
         wx.navigateBack({
@@ -67,5 +80,26 @@ Page({
     _flushSearch: function (event) {
         wx.removeStorageSync('search')
         this.onLoad()
+    },
+    _historySearchTap: function (event) {
+        var keyword = event.currentTarget.dataset.keyword
+        this._getSearchResult(this, keyword)
+        this.setData({flag: true})
+    },
+    _toQuestionOrAnswer: function (event) {
+        var questionId = event.currentTarget.dataset.qid
+        var answerId = event.currentTarget.dataset.aid
+        console.log(questionId)
+        // console.log(answerId === undefined)
+        if (answerId !== '' && answerId !== undefined) {
+            wx.navigateTo({
+                url: '/pages/answer/index?id='+answerId
+            })
+
+        } else {
+            wx.navigateTo({
+                url: '/pages/question/index?id='+questionId
+            })
+        }
     }
 })

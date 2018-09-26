@@ -10,10 +10,10 @@ Page({
             content: '',
             created_at: '',
             id: null,
-            question_id: null,
+            question_id: '',
             title: '',
-            is_vote: null,
-            is_thank: null,
+            is_vote: '',
+            is_thank: '',
         user: null,
 
         showShareModal: false,
@@ -25,13 +25,9 @@ Page({
     },
     onLoad: function (options) {
         var id = options.id
-        // var id = 45
+        var id = 45
         this._getAnswer(id, wxParse)
         // console.log(formatTime.formatTime)
-        if (this.data.content !== '') {
-            // wxParse.wxParse('content', 'html', data.content, this, 15)
-        }
-        // var version = wx.getSystemInfoSync()
         // console.log(version)
     },
 
@@ -43,6 +39,7 @@ Page({
             success: function (res) {
                 if (res.data.errorcode === '0') {
                     var data = res.data.data
+                    console.log(data)
                     // console.log('@@'+data.content)
                     that.setData({
                         agree_count: data.agree_count,
@@ -59,17 +56,20 @@ Page({
                     })
                     wxParse.wxParse('content', 'html', data.content, that, 15)
                 }
+            },
+            fail: function () {
+                
             }
         })
     },
-    _questionDetail: function (event) {
+    _toQuestion: function (event) {
         var id = event.currentTarget.id
         wx.navigateTo({
             url: "/pages/question/index?id="+id
         })
     },
     _toComment: function (event) {
-        var answerId = event.currentTarget.id;
+        var answerId = event.currentTarget.dataset.id;
         // console.log(event);return
         wx.navigateTo({
             url: '/pages/comment/index?id='+answerId

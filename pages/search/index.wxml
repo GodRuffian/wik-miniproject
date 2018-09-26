@@ -1,39 +1,40 @@
+<import src="../../utils/wxParse.wxml"/>
 <view>
   <view class="search-view">
     <view class="search">
-      <input type="text" placeholder="搜索你感兴趣的" focus
-        bindconfirm="_search"
-        confirm-type="search"
-        bindfocus="_bindfocus"
-      />
+      <input type="text" placeholder="搜索你感兴趣的" focus bindconfirm="_search" confirm-type="search" bindfocus="_bindfocus" />
       <!--<navigator url="/pages/index/index">取消</navigator>-->
       <view class="search-cancle" bindtap="_searchCancle">
         <text>取消</text>
       </view>
     </view>
   </view>
-  <view class="container">
+  <view class="container search-content">
     <view class="search-history" wx:if="{{flag}}">
       <view class="search-his-title">
         <text class="search-his-t1">搜索历史</text>
         <text class="search-his-t2" bindtap="_flushSearch">清空搜索历史</text>
       </view>
-      <view class="search-his-data" wx:for="{{historySearch}}">
+      <view class="search-his-data" wx:for="{{historySearch}}" >
         <icon class="search-his-wait">
           <image style="width:32rpx;height:32rpx" src="/assets/images/icon_history.png"></image>
         </icon>
-        <text class="search-his-keyword">{{item.keyword}}</text>
-        <icon class="search-his-del" style="width:44rpx;height:44rpx;"
-            bindtap="_delSearch" data-value="{{item.keyword}}">
+        <text class="search-his-keyword" data-keyword="{{item.keyword}}" bindtap="_historySearchTap">{{item.keyword}}</text>
+        <icon class="search-his-del" style="width:44rpx;height:44rpx;" bindtap="_delSearch" data-value="{{item.keyword}}">
           <image style="width:32rpx;height:32rpx" src="/assets/images/icon_delete@2x.png"></image>
         </icon>
       </view>
     </view>
     <view wx:if="{{!flag}}" wx:for="{{search}}">
-        <view class="search-result" data-id="{{item.id}}">
-                <view>{{item.question.content}}</view>
-                <view>{{item.answer.body}}</view>
+      <view class="search-result" data-id="{{item.id}}"
+        bindtap="_toQuestionOrAnswer" data-qid="{{item.question.id}}" data-aid="{{item.answer.id}}">
+        <view class="v1">
+            <template is="wxParse" data="{{wxParseData:item.question.content.nodes}}"></template>
         </view>
+        <view class="v2" wx:if="{{item.answer.body}}">
+            <template is="wxParse" data="{{wxParseData: item.answer.body.nodes}}"></template>
+        </view>
+      </view>
     </view>
   </view>
 </view>

@@ -6,7 +6,7 @@
     /**display: fixed;**/
     margin-top: 10rpx;
     margin-bottom: 10rpx;
-    width: 659rpx;
+    width: 95.5%;
     height: 60rpx;
     border-radius: 30px;
     padding-left: 30rpx;
