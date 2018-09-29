@@ -1,7 +1,7 @@
 // var wxParse = require('../../utils/wxParse.js')
 var wxParse = require('../../utils/html2json.js')
+import {HOST} from '../../config/config'
 import { formatTime, removeHTMLTag, getFirstImage, intervalToNow } from '../../utils/util'
-const HOST = 'http://local.collegewiki.com/api/miniprogram/'
 
 Page({
   data: {
@@ -28,21 +28,16 @@ Page({
   },
   onLoad: function (options) {
     var id = options.id
-
-    // console.log(id+'###')
     this._getQuestionDetail(id, wxParse)
   },
   _getQuestionDetail: function (id, wxParse) {
     var that = this
     // var HOST = that.globalData.config
-    // var id = 42;
     wx.request({
       url: HOST + 'questions/' + id,
       acceptType: 'json',
       success: function (res) {
-        // console.log(res)
         if (res.data.errorcode === '0') {
-          // console.log(res.data.data)
 
           var question = res.data.data.question;
           question.descLength = question.desc.length
@@ -59,14 +54,12 @@ Page({
               answers[i].created_at = intervalToNow(answers[i].created_at)
 
           }
-          console.log(answers)
           that.setData({ question: question })
           that.setData({ answers: answers })
 
         }
       }
     })
-    // console.log(this.data.questionDetail)
   },
   _toIndex: function () {
     wx.navigateTo({
@@ -82,10 +75,15 @@ Page({
       title: 'test',
       path: '/pages/question/index?id=' + id,
       success: function (res) {
-        console.log('share success...')
       }
     }
   },
+    _shareCircleFriend: function (event) {
+        wx.showToast({
+            title: '程序员溜了'
+        })
+        return
+    },
   _showCopyModal: function (event) {
     var id = event.currentTarget.id + 19911005
     var url = 'https://www.collegewiki.com.cn/question/' + id

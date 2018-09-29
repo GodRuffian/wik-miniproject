@@ -1,11 +1,8 @@
 <!--index.wxml-->
 <!--<view class="{{refresh ? 'update-note update-note--active' : 'update-note'}}">内容已更新</view>-->
 <view class="container">
-
     <search bindtap="_toSearch"></search>
     <indexCard wx:for="{{lists}}" wx:key="item.id" item="{{item}}"></indexCard>
-    <view class="modal" wx:if="{{isRegisted}}"><button open-type="getUserInfo" bindgetuserinfo="_getUserInfoCallback"></button></view>
-
 </view>
 <view class="modal" wx:if="{{!hasUserInfo}}">
     <button open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="_getUserInfo"></button>

@@ -9,6 +9,10 @@ Page({
         backImgHeight:null
     },
     onLoad: function (options) {
+        wx.showToast({
+            title: '程序员留了'
+        })
+        return;
         var answerId = options.id
         answerId  = 45
         var that = this

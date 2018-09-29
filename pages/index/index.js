@@ -1,109 +1,36 @@
 //index.js
 //获取应用实例
-// import { HOST } from '../../config/config.js'
-const HOST = 'http://local.collegewiki.com/api/miniprogram/'
+import { HOST } from '../../config/config.js'
 const app = getApp()
 
 Page({
   data: {
-    userinfo: {},
-    hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo'),
-    lists: [],
-    isRegisted: true,
-    token: null,
-    page: 0,
-    limit: 20,
-    refresh: false,
-    hideHeader: true,
-    loadMoreData: ''
+      // canIUse: wx.canIUse('button.open-type.getUserInfo'),
+      lists: [],
+      userinfo: {},
+      // refresh: false,
+      hasUserInfo: false,
+      page: 0,
+      limit: 20
   },
   onLoad: function () {
-    this._getQuestions()
+    this._getAnswers()
     this.data.page++
-    this._regist()
-  },
-  _isAuth: function () {
-
-    var auth = wx.getStorageSync('temp_user')
-    if (!auth) {
-      return true
-    }
-    return false
   },
   _regist: function () {
     var that = this
     this.setData({ isRegisted: false })
-    // 用户没有注册成功需授权
-    if (!this._isAuth()) {
-      wx.login({
-        success: function (res) {
-          // 发送 res.code 到后台换取 openId, sessionKey, unionId
-          var code = res.code
-          wx.request({
-            url: HOST + 'register',
-            method: 'POST',
-            data: {
-              code: code
-            },
-            acceptType: 'json',
-            success: function (res) {
-              if (res.data.errorcode == '0') {
-                wx.setStorage({ key: 'token', data: res.data.data.token })
-                // wx.setStorage({key: 'auth', data: res.data.data.auth})
-                wx.setStorage({ key: 'temp_user', data: false })
-              }
-            }
-          })
-        }
-      })
-      // 获取用户信息
-      wx.getSetting({
-        success: function (res) {
-          if (res.authSetting['scope.userInfo']) {
-            // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
-            wx.getUserInfo({
-              success: function (res) {
-                // 可以将 res 发送给后台解码出 unionId
-                // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-                // 所以此处加入 callback 以防止这种情况
-                if (this.userInfoReadyCallback) {
-                  this.userInfoReadyCallback(res)
-                }
-              }
-            })
-          }
-        }
-      })
-    } else {
-      return
-    }
+
   },
-  _getQuestions: function () {
+    _getAnswers: function () {
     var that = this
     wx.request({
       url: HOST + "index?page=" + that.data.page + "&limit=" + that.data.limit,
       dataType: 'json',
       success: function (res) {
-        // var data = JSON.parse(res)
         if (res.data.errorcode === '0') {
           that.setData({ lists: res.data.data })
         }
-      }
-    })
-  },
-  _getUserInfoCallback: function (res) {
-    console.log(res.detail.userInfo)
-    // App.globalData.userInfo = res.detail.userInfo
-    this.setData({ isRegisted: false })
-    wx.setStorage({
-      key: 'userInfo',
-      data: res.detail.userInfo,
-      success: function () {
-        console.log('本地存储用户信息成功')
-      },
-      fail: function () {
-        console.log('本地存储用户信息失败')
       }
     })
   },
@@ -113,20 +40,74 @@ Page({
     })
   },
   _getUserInfo: function (res) {
-    console.log(res)
-    var userInfo = res.detail.userInfo
-    this.setData({
-      userInfo: userInfo,
-      hasUserInfo: true
-    })
-      wx.setStorage({key: 'userInfo', data: userInfo})
+      this.setData({ hasUserInfo: true })
+      var token = wx.getStorageSync('token')
+      var userInfo = res.detail.userInfo
+      if (typeof userInfo === 'undefined') {
+          console.log('index getUserInfo....')
+          wx.setStorage({key: 'userInfo', data: ''})
+          wx.setStorage({key: 'temp_user', data: true})
+          wx.setStorage({key: 'token', data: ''})
+          return
+      }
+      var json = {}
+      json.code = res.code
+      json.iv =  ''
+      json.encryptedData = ''
+      json.token = token
+      this.setData({
+        userInfo: userInfo,
+      })
+      wx.login({
+          success: function (res) {
+              // 发送 res.code 到后台换取 openId, sessionKey, unionId
+              json.code = res.code
+              // 获取用户信息
+              wx.getSetting({
+                  success: function (res) {
+                      if (res.authSetting['scope.userInfo']) {
+                          // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
+                          wx.getUserInfo({
+                              success: function (res) {
+                                  json.iv = res.iv
+                                  json.encryptedData = res.encryptedData
+                                  wx.request({
+                                      url: HOST + 'register',
+                                      method: 'POST',
+                                      data: json,
+                                      acceptType: 'json',
+                                      success: function (res) {
+                                          if (res.data.errorcode == '0') {
+                                              var token = res.data.data.token
+                                              if (token) {
+                                                  wx.setStorage({key: 'temp_user', data: false})
+                                                  wx.setStorage({key: 'token', data: token})
+                                              }
+                                          } else {
+                                              // wx.setStorageSync('token', '')
+                                              wx.setStorage({key: 'token', data: ''})
+                                              // wx.setStorageSync('temp_user', true)
+                                              wx.setStorage({key: 'temp_user', data: true})
+                                          }
+                                      }
+                                  })
+                              }
+                          })
+                      }
+                  }
+              })
+
+          }
+      })
+      wx.setStorageSync('userInfo', userInfo)
   },
-  onPullDownRefresh: function () {
+  /*onPullDownRefresh: function () {
     var that = this
+      // var page = this.data.page
+      console.log(this.data.page)
     setTimeout(function () {
-        that.setData({refresh: true})
         wx.request({
-            url: HOST + '/index?page=0' + '&limit=' + that.data.limit,
+            url: HOST + 'index?page=0' + '&limit=' + that.data.limit,
             acceptType: 'json',
             success: function (res) {
                 var data = res.data.data
@@ -136,7 +117,7 @@ Page({
     }, 300)
     // // 数据成功后，停止下拉刷新
     wx.stopPullDownRefresh()
-  },
+  },*/
   onReachBottom: function () {
       var that = this
       that.data.page += 1

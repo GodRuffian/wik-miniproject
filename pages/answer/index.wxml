@@ -23,11 +23,13 @@
   <view class="answer-footer-content">
     <view class="answer-footer-left">
       <view class="answer-footer-vote" bindtap="_vote" data-isvote="{{is_vote}}" data-id="{{id}}">
-        <image style="" src="{{voteIcon}}"></image>
+        <image wx:if="{{is_vote}}" style="" src="{{isvoteIcon}}"></image>
+        <image wx:else style="" src="{{voteIcon}}" ></image>
         <text>靠谱{{agree_count}}</text>
       </view>
-      <view class="answer-footer-unvote" bindtap="_unvote" data-isvote="{{is_vote}}" data-id="{{id}}">
-        <image style="" src="{{unvoteIcon}}"></image>
+      <view class="answer-footer-unvote" bindtap="_unvote" data-isvote="{{is_unvote}}" data-id="{{id}}">
+        <image wx:if="{{is_unvote}}" src="{{isunvoteIcon}}"></image>
+        <image wx:else src="{{unvoteIcon}}"></image>
       </view>
     </view>
     <view class="answer-footer-right">

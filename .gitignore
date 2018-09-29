@@ -1,1 +1,7 @@
 .idea/
+.DS_Store
+assets/.DS_Store
+components/.DS_Store
+components/question/.DS_Store
+pages/.DS_Store
+

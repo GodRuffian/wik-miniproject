@@ -31,7 +31,6 @@
     width: 28rpx;
     height: 28rpx;
     padding: 2rpx;
-    border: 1rpx dashed #ccc;
 }
 .comment-content {
     color: #333333;

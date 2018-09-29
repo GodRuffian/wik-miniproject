@@ -1,6 +1,5 @@
 {
-  "navigationBarBackgroundColor": "#95aac9",
-  "navigationBarTitleText": "xx条回复",
+  "navigationBarTitleText": "回复页",
   "navigationBarTextStyle":"black",
   "backgroundColor": "#eee",
   "enablePullDownRefresh": false

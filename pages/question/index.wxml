@@ -13,7 +13,7 @@
   <view class='question-answerCount'>
     <view>{{answers.length}}个回答</view>
   </view>
-  <view class="question-answer" wx:for="{{answers}}" wx:key="item.id" wx:for-index="index" bindtap="_toAnswer" data-id="{{item.id}}">
+  <view wx:if="{{answers.length > 0}}" class="question-answer" wx:for="{{answers}}" wx:key="item.id" wx:for-index="index" bindtap="_toAnswer" data-id="{{item.id}}">
     <view class="question-answer-user">
       <image src="{{item.user.headurl}}"></image>
       <text>{{item.user.username}}</text>
@@ -28,6 +28,10 @@
       <text class="countVote">{{item.agree_count}}靠谱</text>
       <text>{{item.created_at}}</text>
     </view>
+  </view>
+  <view wx:if="{{answer.length == 0}}" class="question-no-answer">
+    <image src="/assets/images/img_noanswer@2x.png"></image>
+    <text>暂时没有相关回答</text>
   </view>
   <view class="question-bottom">
     <view class="bottom-v1" bindtap="_toIndex">
@@ -49,7 +53,7 @@
       <image class="my-modal-container-body-img1" src="/assets/images/Wechat@2x.png"></image>
       <text>微信好友</text>
     </view>
-    <view class="my-modal-container-body-v2">
+    <view class="my-modal-container-body-v2" bindtap="_shareCircleFriend">
       <image src="/assets/images/PYQ@2x.png"></image>
       <text>微信朋友圈</text>
     </view>

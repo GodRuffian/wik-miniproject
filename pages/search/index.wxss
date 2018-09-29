@@ -96,3 +96,18 @@
 .web_mark {
     color: #FE3B2F;
 }
+.no-search {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50%;
+}
+.no-search image{
+    width: 200rpx;
+    height: 200rpx;
+}
+.no-search text{
+    font-size: 30rpx;
+    color: #666666;
+    margin-top: 40rpx;
+}

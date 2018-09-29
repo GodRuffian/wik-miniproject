@@ -31,7 +31,6 @@
     width: 28rpx;
     height: 28rpx;
     padding: 2rpx;
-    border: 1rpx dashed #ccc;
 }
 .comment-content {
     color: #333333;
@@ -57,4 +56,20 @@
 }
 .comment-footer image {
     margin-right: 40rpx;
+}
+.no-comments {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.no-comments image {
+    width: 200rpx;
+    height: 200rpx;
+    margin: 0 auto;
+    margin-top: 50%;
+}
+.no-comments text {
+    font-size: 30rpx;
+    color: #666666;
+    margin-top: 40rpx;
 }

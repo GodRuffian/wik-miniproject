@@ -8,10 +8,8 @@ Page({
         flag: false
     },
     _search: function (event) {
-        console.log(event)
         var that = this
         var keyword = event.detail.value
-        console.log(keyword)
         var search = wx.getStorageSync('search')
         if (search.length > 10) {
             search.pop()
@@ -27,25 +25,21 @@ Page({
             data: search
         })
         this._getSearchResult(that, keyword)
-        // this.onLoad()
     },
     _getSearchResult: function (that, keyword) {
         wx.request({
-            url: HOST_DEV+'search?q='+keyword,
+            url: HOST+'search?q='+keyword,
             acceptType: 'json',
             success: function (res) {
                 // console.log(res)
                 if (res.data.errorcode === '0') {
                     var data = res.data.data;
-                    // console.log(res)
                     for (var i = 0; i < data.length; i++) {
-                        // data[i].question.content = wxParse.wxParse('content1', 'html', data[i].question.content, that)
                         data[i].question.content = wxParse.html2json(data[i].question.content, 'content')
                         if (data[i].answer.body) {
                             data[i].answer.body = wxParse.html2json(data[i].answer.body, 'body')
                         }
                     }
-                    console.log(data)
                     that.setData({search: data, flag: false})
                 }
             }
@@ -54,7 +48,6 @@ Page({
     _searchCancle: function () {
         wx.navigateBack({
             delta: 1
-            // url: "/pages/index/index"
         })
     },
     onLoad: function () {

@@ -1,51 +1,15 @@
-const HOST = 'http://local.collegewiki.com/api/miniprogram/'
 import {intervalToNow} from '../../utils/util'
+import {HOST} from '../../config/config'
 
 Page({
     data: {
-        comments: [
-            /*{'content': '不排除高级外星文明的联络方式，并非我们人类所熟知的以电磁波为载体，所以我们无法有效的检测到他们的联络信息。',
-                'count': '132','created_at': '2018-09-18 12:12:23','id':11,
-                'user': {
-                    'username': '呱呱',
-                    'headurl': 'http://pcimage.collegewiki.com.cn/webpc/question/OX7QV91520413295.png'
-                }
-            },
-            {'content': '不排除高级外星文明的联络方式，并非我们人类所熟知的以电磁波为载体，以我们无法有效的检测到他们的联以我们无法有效的检测到他们的联所以我们无法有效的检测到他们的联络信息。',
-                'count': '132','created_at': '2018-09-18 12:12:23','id':11,
-                'user': {
-                    'username': '呱呱',
-                    'headurl': 'http://pcimage.collegewiki.com.cn/webpc/question/OX7QV91520413295.png'
-                }
-            },
-            {'content': '不排除高级外星文明的联络方式，并非我们人类所熟知的以电磁波为载体，所以我们无法有效的检测到他们的联络信息。',
-                'count': '132','created_at': '2018-09-18 12:12:23','id':11,
-                'user': {
-                    'username': '呱呱',
-                    'headurl': 'http://pcimage.collegewiki.com.cn/webpc/question/OX7QV91520413295.png'
-                }
-            },
-            {'content': '不排除高级外星文明的联络方式，并非我们人类所熟知的以电磁波为载体，所以我们无法有效的检测到他们的联络信息。',
-                'count': '132','created_at': '2018-09-18 12:12:23','id':11,
-                'user': {
-                    'username': '呱呱',
-                    'headurl': 'http://pcimage.collegewiki.com.cn/webpc/question/OX7QV91520413295.png'
-                }
-            },
-            {'content': '不排除高级外星文明的联络方式，并非我们人类所熟知的以电磁波为载体，所以我们无法有效的检测到他们的联络信息。',
-                'count': '132','created_at': '2018-09-18 12:12:23','id':11,
-                'user': {
-                    'username': '呱呱',
-                    'headurl': 'http://pcimage.collegewiki.com.cn/webpc/question/OX7QV91520413295.png'
-                }
-            }*/
-        ],
+        comments: [],
         unvoteIcon: '/assets/images/icon_dianzan_nor@2x.png',
         voteIcon: '/assets/images/icon_dianzan_press@2x.png'
     },
     onLoad: function (options) {
-        console.log(options)
         var id = options.id
+        // id = 45
         this._getComments(id)
     },
     _getComments: function (answerId) {
@@ -57,7 +21,6 @@ Page({
             },
             acceptType: 'json',
             success: function (res) {
-                // console.log(res)
                 if (res.data.errorcode === '0') {
                     for (var i = 0; i < res.data.data.length; i++) {
                         res.data.data[i].created_at = intervalToNow(res.data.data[i].created_at)
@@ -70,15 +33,20 @@ Page({
         })
     },
     _toReply: function (event) {
-        var commentId = event.currentTarget.id
+        var commentId = event.currentTarget.dataset.id
         wx.navigateTo({
             url: '/pages/reply/index?id='+commentId
         })
     },
     _vote: function (event) {
-        // console.log('is hrere')
+        var isTempUser = wx.getStorageSync('temp_user')
+        if (isTempUser) {
+            wx.showToast({
+                title: '请授权后操作'
+            })
+            return;
+        }
         var commentId = event.currentTarget.dataset.id
-        // console.log(this.data.comments)
         var voteArr = wx.getStorageSync('commentVote');
         if (voteArr.length > 0) {
             voteArr.push(commentId);
@@ -92,19 +60,17 @@ Page({
         for (var i = 0; i < this.data.comments.length; i++) {
             if (this.data.comments[i].id === commentId) {
                 var comment  = this.data.comments[i]
-                // console.log(comment.is_vote)
                 var is_vote = comment.is_vote
-                // console.log(is_vote+'~~!!!')
                 if (this.data.comments[i].is_vote) {
                     var key = this.data.comments[i].is_vote
-                    //['msg[' + i + '].is_say_yes']
                     this.setData({
                         ['comments['+i+'].is_vote']: false,
+                        ['comments['+i+'].agree_count']: this.data.comments[i].agree_count -1,
                     })
                 } else {
-                    console.log('21313')
                     this.setData({
-                        ['comments['+i+'].is_vote']: true
+                        ['comments['+i+'].is_vote']: true,
+                            ['comments['+i+'].agree_count']: this.data.comments[i].agree_count +1
                     })
                 }
                 wx.request({
@@ -119,8 +85,6 @@ Page({
                 })
             }
         }
-        // console.log(this.data.comments)
-
     },
     _getToken: function () {
         return wx.getStorageSync('token')
