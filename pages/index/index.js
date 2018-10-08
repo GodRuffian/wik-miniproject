@@ -72,7 +72,7 @@ Page({
                                   json.iv = res.iv
                                   json.encryptedData = res.encryptedData
                                   wx.request({
-                                      url: HOST + 'register',
+                                      url: HOST + 'v2/register',
                                       method: 'POST',
                                       data: json,
                                       acceptType: 'json',
