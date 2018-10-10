@@ -28,6 +28,7 @@ Page({
         thank: false,
         thankIcon: '/assets/images/icon_appreciate_press@2x.png',
         unthankIcon: '/assets/images/icon_appreciate_nor@2x.png',
+        isIphoneX: false
     },
     onLoad: function (options) {
         var that = this
@@ -35,6 +36,16 @@ Page({
         var id = options.id
         // var id = 45
         this._getAnswer(id, wxParse)
+        // iPhone X 适配
+        wx.getSystemInfo({
+            success: function (res) {
+                // console.log(res.model)
+                var model = res.model;
+                if (model.search('iPhone10,2') || model.search('iPhone11,2')) {
+                    that.setData({isIphoneX: true})
+                }
+            }
+        })
     },
 
     _getAnswer: function(answerId, wxParse) {

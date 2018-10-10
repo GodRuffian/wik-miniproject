@@ -20,7 +20,7 @@
       </view>
     </view>
 </view>
-<view class="answer-footer">
+<view class="answer-footer {{isIphoneX ? 'iphone-x-custom':''}}">
   <view class="answer-footer-content">
     <view class="answer-footer-left">
       <view class="answer-footer-vote" bindtap="_vote" data-isvote="{{is_vote}}" data-id="{{id}}">
