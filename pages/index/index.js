@@ -101,8 +101,8 @@ Page({
       })
       wx.setStorageSync('userInfo', userInfo)
   },
-  /*onPullDownRefresh: function () {
-    var that = this
+  onPullDownRefresh: function () {
+    /*var that = this
       // var page = this.data.page
       console.log(this.data.page)
     setTimeout(function () {
@@ -114,10 +114,10 @@ Page({
                 that.setData({lists: data})
             }
         })
-    }, 300)
+    }, 300)*/
     // // 数据成功后，停止下拉刷新
     wx.stopPullDownRefresh()
-  },*/
+  },
   onReachBottom: function () {
       var that = this
       that.data.page += 1

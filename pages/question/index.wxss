@@ -101,7 +101,7 @@
     font-size: 30rpx;
     color: #484848;
     background: #fff;
-    box-shadow: 0rpx -6rpx 6rpx #f0f2f5;
+    box-shadow: 0rpx -4rpx 8rpx #A6A6A6;
 }
 
 .question-bottom view {
@@ -117,8 +117,23 @@
     height: 40rpx;
     margin-right: 12rpx;
 }
-.question-bottom .bottom-v1 {
+.question-bottom .bottom-v1-hover {
     background: #F3F7F7;
+}
+.question-bottom .bottom-v2 button {
+     background: none;
+        border: 0rpx;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: row;
+        font-size: 30rpx;
+        align-items: center;
+        line-height: inherit;
+}
+
+.question-bottom .bottom-v2 button:after {
+    border:none;
 }
 .btn-answer {
     width: 100rpx;

@@ -5,7 +5,8 @@ Page({
     data: {
         search: [],
         historySearch: [],
-        flag: false
+        flag: false,
+        showHistoryFlag: true
     },
     _search: function (event) {
         var that = this
@@ -20,10 +21,12 @@ Page({
         } else {
             search.unshift({keyword: keyword})
         }
-        wx.setStorage({
-            key: 'search',
-            data: search
-        })
+        if (keyword && keyword.length > 0) {
+            wx.setStorage({
+                key: 'search',
+                data: search
+            })
+        }
         this._getSearchResult(that, keyword)
     },
     _getSearchResult: function (that, keyword) {
@@ -52,12 +55,14 @@ Page({
     },
     onLoad: function () {
         var search = wx.getStorageSync('search')
+        console.log(search)
         this.setData({historySearch: search})
     },
 
     _bindfocus: function (event) {
         this.onLoad()
         this.setData({flag: true})
+        this.setData({showHistoryFlag: true})
     },
     _delSearch: function (event) {
         var value = event.currentTarget.dataset.value
@@ -72,6 +77,7 @@ Page({
     },
     _flushSearch: function (event) {
         wx.removeStorageSync('search')
+        this.setData({showHistoryFlag: false})
         this.onLoad()
     },
     _historySearchTap: function (event) {

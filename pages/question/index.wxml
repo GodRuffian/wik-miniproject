@@ -29,22 +29,25 @@
       <text>{{item.created_at}}</text>
     </view>
   </view>
-  <view wx:if="{{answer.length == 0}}" class="question-no-answer">
+  <view wx:if="{{answers.length == 0}}" class="question-no-answer">
     <image src="/assets/images/img_noanswer@2x.png"></image>
     <text>暂时没有相关回答</text>
   </view>
   <view class="question-bottom">
-    <view class="bottom-v1" bindtap="_toIndex">
+    <view class="bottom-v1" bindtap="_toIndex" hover-class="bottom-v1-hover">
       <image src="/assets/images/tab_home_icon_selcopy5@2x.png"></image>
       <text>首页</text>
     </view>
-    <view open-type="share" bindtap="_myModal" data-status="open">
-      <image src="/assets/images/icon_share copy 2@2x.png"></image>
-      <text>分享</text>
+    <view class="bottom-v2" open-type="share" bindtap="_myModal" data-status="open" hover-class="bottom-v1-hover">
+        <button open-type="share" bindtap="_myModal">
+            <image src="/assets/images/icon_share copy 2@2x.png"></image>
+            <text>分享</text>
+      </button>
     </view>
   </view>
-  <view class="btn-answer" id="{{question.id}}" bindtap="_showCopyModal">回答</view>
+  <!--<view class="btn-answer" id="{{question.id}}" bindtap="_showCopyModal">回答</view>-->
 </view>
+<!--
 <view class="my-modal" wx:if="{{showShareModal}}"></view>
 <view class="my-modal-container" wx:if="{{showShareModal}}">
   <view class="my-modal-container-head">分享问题</view>
@@ -61,4 +64,4 @@
   <view class="my-modal-box-footer" bindtap="_myModal" data-status="close">
     <image src="/assets/images/icon_close@2x.png"></image>
   </view>
-</view>
+</view>-->

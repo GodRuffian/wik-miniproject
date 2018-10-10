@@ -19,6 +19,8 @@
     display:-webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
+    font-weight: bold;
+    letter-spacing: 2rpx;
 }
 
 .card-user {
@@ -34,10 +36,11 @@
 }
 .card-user-username {
     font-size: 26rpx;
-
+    color: #999999;
 }
 .card-cover {
     flex: 0 0 226rpx;
     height: 152rpx;
     margin-left: 20rpx;
+    border-radius: 4rpx;
 }

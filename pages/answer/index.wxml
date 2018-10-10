@@ -1,31 +1,32 @@
 <!--index.wxml-->
 <import src="../../utils/wxParse.wxml"/>
-<view class="container">
-  <view class="answer">
+<view class="container-answer">
     <view class="answer-question-title" id="{{question_id}}" bindtap="_toQuestion">{{title}}</view>
-    <view class="blank"></view>
-    <view class="answer-body">
-      <view class="answer-body-head">
-        <image class="head-user-headurl" src="{{user.headurl}}"></image>
-        <text class="head-username">{{user.username}}</text>
-        <text class="head-user-profile">{{user.profile}}</text>
-      </view>
-      <!--<view class="answer-body-content">{{content}}</view>-->
-      <template is="wxParse" data="{{wxParseData:content.nodes}}"/>
-      <view class="answer-body-footer">
-        <text>{{created_at}}</text>
+    <view style="margin-top: 20rpx;">
+      <view class="answer container">
+        <view class="answer-body">
+          <view class="answer-body-head">
+            <image class="head-user-headurl" src="{{user.headurl}}"></image>
+            <view class="answer-body-head-user">
+                <text class="head-username">{{user.username}}</text>
+                <text wx:if="{{user.profile}}" class="head-user-profile">{{user.profile}}</text>
+            </view>
+          </view>
+          <template is="wxParse" data="{{wxParseData:content.nodes}}"/>
+          <view class="answer-body-footer">
+            <text>{{created_at}}</text>
+          </view>
+        </view>
       </view>
     </view>
-  </view>
 </view>
 <view class="answer-footer">
-  <view class="answer-footer-blank"></view>
   <view class="answer-footer-content">
     <view class="answer-footer-left">
       <view class="answer-footer-vote" bindtap="_vote" data-isvote="{{is_vote}}" data-id="{{id}}">
         <image wx:if="{{is_vote}}" style="" src="{{isvoteIcon}}"></image>
         <image wx:else style="" src="{{voteIcon}}" ></image>
-        <text>靠谱{{agree_count}}</text>
+        <text class="{{is_vote? 'user-handle': ''}}">靠谱{{agree_count}}</text>
       </view>
       <view class="answer-footer-unvote" bindtap="_unvote" data-isvote="{{is_unvote}}" data-id="{{id}}">
         <image wx:if="{{is_unvote}}" src="{{isunvoteIcon}}"></image>
@@ -40,17 +41,19 @@
       <view class="answer-footer-thank" bindtap="_thank" data-thank="{{is_thank}}" data-id="{{id}}">
         <image style="" wx:if="{{is_thank}}" src="{{thankIcon}}"></image>
         <image style="" wx:else src="{{unthankIcon}}"></image>
-        <text wx:if="{{is_thank}}">已感谢</text>
+        <text class="{{is_thank ? 'user-handle': ''}}" wx:if="{{is_thank}}">已感谢</text>
         <text wx:else style="margin-left: 12rpx;">感谢</text>
       </view>
-      <view class="answer-footer-share" bindtap="_myModal" data-status="open">
-        <image style="width:36rpx;height:36rpx;" src="/assets/images/icon_share@2x.png"></image>
-        <text>分享</text>
-      </view>
+          <view class="answer-footer-share" data-status="open">
+            <button open-type="share" bindtap="_myModal">
+                <image src="/assets/images/icon_share@2x.png"></image>
+                <text>分享</text>
+              </button>
+          </view>
     </view>
   </view>
 </view>
-<view class="my-modal" wx:if="{{showShareModal}}"></view>
+<!--<view class="my-modal" wx:if="{{showShareModal}}"></view>
 <view class="my-modal-container" wx:if="{{showShareModal}}">
   <view class="my-modal-container-head">分享回答</view>
   <view class="my-modal-container-body">
@@ -70,4 +73,4 @@
   <view class="my-modal-box-footer" bindtap="_myModal" data-status="close">
     <image src="/assets/images/icon_close@2x.png"></image>
   </view>
-</view>
+</view>-->

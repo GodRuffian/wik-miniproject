@@ -1,5 +1,5 @@
 .search-view {
-    box-shadow: 0rpx 4rpx 4rpx #A6A6A6;
+    box-shadow: 0rpx 2rpx 8rpx #A6A6A6;
     padding: 20rpx 0rpx;
     font-size: 28rpx;
     position: fixed;
@@ -48,6 +48,7 @@
      display: inline-block;
      position: absolute;
      right: 30rpx;
+     color: #999999;
 }
 .search-his-data {
     display: flex;

@@ -1,10 +1,10 @@
 {
   "pages":[
     "pages/index/index",
-    "pages/comment/index",
+    "pages/question/index",
     "pages/answer/index",
     "pages/search/index",
-    "pages/question/index",
+    "pages/comment/index",
     "pages/share/index",
     "pages/reply/index",
     "pages/logs/logs"

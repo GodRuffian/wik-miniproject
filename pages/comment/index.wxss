@@ -15,6 +15,7 @@
 .comment-user-username {
     color: #121212;
     font-size: 34rpx;
+    font-weight: bold;
 }
 .comment-created_at {
     color:  #999999;
@@ -28,8 +29,8 @@
     margin-right: 20rpx;
 }
 .comment-vote-icon {
-    width: 28rpx;
-    height: 28rpx;
+    width: 44rpx;
+    height: 44rpx;
     padding: 2rpx;
 }
 .comment-content {
@@ -53,6 +54,7 @@
 }
 .comment-footer .comment-footer-count {
      margin-right: 5rpx;
+     color: #999999;
 }
 .comment-footer image {
     margin-right: 40rpx;

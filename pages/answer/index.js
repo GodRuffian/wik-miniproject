@@ -40,7 +40,7 @@ Page({
     _getAnswer: function(answerId, wxParse) {
         var that = this
         wx.request({
-            url: HOST+'answers/'+answerId,
+            url: HOST+'v2/answers/'+answerId,
             data: {token: that.data.token},
             acceptType: 'json',
             success: function (res) {
@@ -84,18 +84,19 @@ Page({
         })
     },
     _myModal: function (event) {
-        var currentStatus = event.currentTarget.dataset.status;
+        this.onShareAppMessage()
+        /*var currentStatus = event.currentTarget.dataset.status;
         if (currentStatus === 'open') {
             this.setData({showShareModal: true})
         } else if (currentStatus === 'close') {
             this.setData({showShareModal: false})
-        }
+        }*/
     },
     onShareAppMessage: function () {
         return {
-            title: this.data.answer.title,
+            title: this.data.title,
             desc: '',
-            path: '/pages/answer/index?id='+this.data.answer.id
+            path: '/pages/answer/index?id='+this.data.id
         }
     },
     _wxShare: function (event) {
