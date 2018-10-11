@@ -41,7 +41,7 @@ Page({
             success: function (res) {
                 // console.log(res.model)
                 var model = res.model;
-                if (model.search('iPhone10,2') || model.search('iPhone11,2')) {
+                if (model.search('iPhone10,2') > 0 || model.search('iPhone11,2') > 0) {
                     that.setData({isIphoneX: true})
                 }
             }
