@@ -1,7 +1,8 @@
 <!--index.wxml-->
 <import src="../../utils/wxParse.wxml"/>
-<view class="container-answer">
+<view class="container-answer" bindtap="_showGuidIcon">
     <view class="answer-question-title" id="{{question_id}}" bindtap="_toQuestion">{{title}}</view>
+    <image wx:if="{{showGuidIcon}}" class="guid-icon" src="/assets/images/btn_open_app2@2x.png"></image>
     <view style="margin-top: 20rpx;">
       <view class="answer container">
         <view class="answer-body">
@@ -44,16 +45,16 @@
         <text class="{{is_thank ? 'user-handle': ''}}" wx:if="{{is_thank}}">已感谢</text>
         <text wx:else style="margin-left: 12rpx;">感谢</text>
       </view>
-          <view class="answer-footer-share" data-status="open">
-            <button open-type="share" bindtap="_myModal">
+          <view class="answer-footer-share" data-status="open" bindtap="_myModal">
+            <!--<button open-type="share" bindtap="_myModal">-->
                 <image src="/assets/images/icon_share@2x.png"></image>
                 <text>分享</text>
-              </button>
+              <!--</button>-->
           </view>
     </view>
   </view>
 </view>
-<!--<view class="my-modal" wx:if="{{showShareModal}}"></view>
+<view class="my-modal" wx:if="{{showShareModal}}"></view>
 <view class="my-modal-container" wx:if="{{showShareModal}}">
   <view class="my-modal-container-head">分享回答</view>
   <view class="my-modal-container-body">
@@ -66,11 +67,11 @@
     <button class="share-friend" bindtap="_shareCircleFriend">
       <view class="my-modal-container-body-v2">
         <image src="/assets/images/PYQ@2x.png"></image>
-        <text>微信朋友圈</text>
+        <text>生成海报</text>
       </view>
     </button>
   </view>
   <view class="my-modal-box-footer" bindtap="_myModal" data-status="close">
     <image src="/assets/images/icon_close@2x.png"></image>
   </view>
-</view>-->
+</view>

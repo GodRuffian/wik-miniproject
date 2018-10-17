@@ -28,7 +28,8 @@ Page({
         thank: false,
         thankIcon: '/assets/images/icon_appreciate_press@2x.png',
         unthankIcon: '/assets/images/icon_appreciate_nor@2x.png',
-        isIphoneX: false
+        isIphoneX: false,
+        showGuidIcon: true
     },
     onLoad: function (options) {
         var that = this
@@ -46,8 +47,12 @@ Page({
                 }
             }
         })
-    },
+        var showGuidIcon = wx.getStorageSync('showGuidIcon');
+        if (showGuidIcon) {
+            that.setData({showGuidIcon: false});
+        }
 
+    },
     _getAnswer: function(answerId, wxParse) {
         var that = this
         wx.request({
@@ -95,13 +100,13 @@ Page({
         })
     },
     _myModal: function (event) {
-        this.onShareAppMessage()
-        /*var currentStatus = event.currentTarget.dataset.status;
+        // this.onShareAppMessage()
+        var currentStatus = event.currentTarget.dataset.status;
         if (currentStatus === 'open') {
             this.setData({showShareModal: true})
         } else if (currentStatus === 'close') {
             this.setData({showShareModal: false})
-        }*/
+        }
     },
     onShareAppMessage: function () {
         return {
@@ -114,10 +119,9 @@ Page({
         this.onShareAppMessage()
     },
     _shareCircleFriend: function (event) {
-        wx.showToast({
-            title: '程序员溜了'
-        })
-        return
+       wx.navigateTo({
+           url: '/pages/share/index?type=answer&id='+this.data.id
+       })
     },
     _vote: function (event) {
         var isTempUser = wx.getStorageSync('temp_user')
@@ -227,5 +231,9 @@ Page({
             success: function (res) {
             }
         })
+    },
+    _showGuidIcon: function () {
+        this.setData({showGuidIcon: false})
+        wx.setStorage({key: 'showGuidIcon', data: true})
     }
 })

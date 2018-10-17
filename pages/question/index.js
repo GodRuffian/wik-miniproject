@@ -15,7 +15,8 @@ Page({
   },
   onLoad: function (options) {
     var id = options.id
-      // id = 609;
+      // id = 609
+    // id=45
     this._getQuestionDetail(id, wxParse)
   },
   _getQuestionDetail: function (id, wxParse) {
@@ -56,7 +57,6 @@ Page({
 
   },
   onShareAppMessage: function (res) {
-    // var id = 42;
     return {
       title: this.data.question.content,
       path: '/pages/question/index?id=' + this.data.question.id,
@@ -64,19 +64,22 @@ Page({
       }
     }
   },
+    _wxShare: function () {
+        this.onShareAppMessage();
+    },
     _shareCircleFriend: function (event) {
-        wx.showToast({
-            title: '程序员溜了'
+        wx.navigateTo({
+            url: '/pages/share/index?type=qestion&id='+this.data.question.id
         })
-        return
     },
   _showCopyModal: function (event) {
-    var id = event.currentTarget.id + 19911005
-    var url = 'https://www.collegewiki.com.cn/question/' + id
+    var id = new Number(event.currentTarget.id)
+      // var url  = 'http://api.collegewiki.com.cn/?type=1&id='+id
+      var url = 'https://www.collegewiki.com.cn/towiki/type=1&id='+id
     wx.setClipboardData({
       data: url,
       fail: function () {
-        console.log('问题设置剪贴板内容失败')
+        // console.log('问题设置剪贴板内容失败')
       },
       success: function () {
       }
@@ -90,13 +93,13 @@ Page({
     wx.showModal(config)
   },
   _myModal: function (event) {
-    this.onShareAppMessage()
-    /*var currentStatus = event.currentTarget.dataset.status;
+    // this.onShareAppMessage()
+    var currentStatus = event.currentTarget.dataset.status;
     if (currentStatus === 'open') {
       this.setData({ showShareModal: true })
     } else if (currentStatus === 'close') {
       this.setData({ showShareModal: false })
-    }*/
+    }
   },
   _showDesc: function (event) {
     this.setData({

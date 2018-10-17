@@ -8,6 +8,7 @@
 .quesion-title {
   font-size: 38rpx;
   color: #181818;
+  font-weight: bold;
   height: auto;
   margin-top: 30rpx;
   margin-bottom: 20rpx;
@@ -250,4 +251,25 @@
     font-size: 30rpx;
     color: #666666;
     margin-top: 40rpx;
+}
+.answer-icon {
+    width: 140rpx;
+    height: 140rpx;
+    position: fixed;
+    display: block;
+    right: 20rpx;
+    bottom: 136rpx;
+}
+.share-friend{
+    margin: 0rpx;
+    background: none;
+    padding: 0rpx;
+    border: none;
+    border-color: #fff;
+    line-height: 20rpx;
+    overflow: none;
+    height: 160rpx;
+}
+.share-friend::after {
+    border: none;
 }

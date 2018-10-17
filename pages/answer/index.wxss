@@ -231,3 +231,11 @@
 .iphone-x-custom {
     padding-bottom: 68rpx;
 }
+.guid-icon {
+    width: 464rpx;
+    height: 120rpx;
+    display: block;
+    z-index: 1000;
+    position: fixed;
+    left: 20%;
+}

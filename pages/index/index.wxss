@@ -50,3 +50,20 @@
     top: 0;
     transition: all 0.3s linear;
 }
+.question-icon {
+    width: 140rpx;
+    height: 140rpx;
+    display: block;
+    position: fixed;
+    right: 20rpx;
+    bottom: 36rpx;
+}
+.guide-icon {
+    width: 528rpx;
+    height: 120rpx;
+    display: block;
+    position: fixed;
+    z-index: 1001;
+    right: 20rpx;
+    top: 0;
+}

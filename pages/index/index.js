@@ -1,6 +1,6 @@
 //index.js
 //获取应用实例
-import { HOST } from '../../config/config.js'
+import { HOST, APP_DOWNLOAD} from '../../config/config.js'
 const app = getApp()
 
 Page({
@@ -11,11 +11,16 @@ Page({
       // refresh: false,
       hasUserInfo: false,
       page: 0,
-      limit: 20
+      limit: 20,
+      showGuidIcon: true
   },
   onLoad: function () {
     this._getAnswers()
     this.data.page++
+      var showIndexGuidIcon = wx.getStorageSync('showIndexGuidIcon')
+      if (showIndexGuidIcon) {
+        this.setData({showGuidIcon: false})
+      }
   },
   _regist: function () {
     var that = this
@@ -40,11 +45,13 @@ Page({
     })
   },
   _getUserInfo: function (res) {
+      this.setData({showGuidIcon: false})
+      wx.setStorage({key: 'showIndexGuidIcon', data: true})
+
       this.setData({ hasUserInfo: true })
       var token = wx.getStorageSync('token')
       var userInfo = res.detail.userInfo
       if (typeof userInfo === 'undefined') {
-          console.log('index getUserInfo....')
           wx.setStorage({key: 'userInfo', data: ''})
           wx.setStorage({key: 'temp_user', data: true})
           wx.setStorage({key: 'token', data: ''})
@@ -140,7 +147,24 @@ Page({
               }
           })
       }, 300)
-  }
+  },
+    _showQuestionToast: function () {
+        wx.setClipboardData({
+            data: APP_DOWNLOAD,
+            fail: function () {
+            },
+            success: function () {
+            }
+        })
+        wx.showModal({
+            title: '请通过浏览器打开APP',
+            content: '已为你复制了链接，黏贴在浏览器中下载留学维基APP吧',
+            showCancel: false,
+            success: function (res) {
+
+            }
+        })
+    }
 
 })
 

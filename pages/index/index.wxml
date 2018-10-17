@@ -1,8 +1,10 @@
 <!--index.wxml-->
 <!--<view class="{{refresh ? 'update-note update-note--active' : 'update-note'}}">内容已更新</view>-->
+<image wx:if="{{showGuidIcon}}" class="guide-icon" src="/assets/images/btn_open_app1@2x.png"></image>
 <view class="container">
     <search bindtap="_toSearch"></search>
     <indexCard wx:for="{{lists}}" wx:key="item.id" item="{{item}}"></indexCard>
+    <image class="question-icon" src="/assets/images/btn_ask_question@2x1@2x.png" bindtap="_showQuestionToast"></image>
 </view>
 <view class="modal" wx:if="{{!hasUserInfo}}">
     <button open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="_getUserInfo"></button>
